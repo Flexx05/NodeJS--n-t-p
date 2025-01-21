@@ -82,7 +82,7 @@ export const updateProduct = async (req, res) => {
 // Create
 export const createProduct = async (req, res) => {
   try {
-    const { error, value } = productSchema(req.body, {
+    const { error, value } = productSchema.validate(req.body, {
       abortEarly: false,
       convert: false,
     });
@@ -90,7 +90,7 @@ export const createProduct = async (req, res) => {
       const errors = error.details.map((error) => error.message);
       return res.status(400).json(errors);
     }
-    const product = Product.create(value);
+    const product = await Product.create(value);
     return res.status(201).json({
       message: "Thêm sản phẩm thành công",
       product,
