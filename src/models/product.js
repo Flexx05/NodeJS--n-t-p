@@ -12,7 +12,7 @@ const productSchema = mongoose.Schema(
       required: true,
     },
   },
-  { versionKey: false, timestamps: true }
+  { timestamps: true, versionKey: false }
 );
 
 export default mongoose.model("Product", productSchema);

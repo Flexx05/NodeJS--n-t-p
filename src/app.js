@@ -1,15 +1,14 @@
 import express from "express";
 import productRouter from "./routers/product";
-import cors from "cors";
 import mongoose from "mongoose";
+
 const app = express();
 
+// midleware
 app.use(express.json());
 
+// connect DB
 mongoose.connect("mongodb://localhost:27017/wd19321");
-
-app.use(cors());
-
+// router
 app.use("/api", productRouter);
-
 export const viteNodeApp = app;
