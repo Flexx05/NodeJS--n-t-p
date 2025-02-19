@@ -9,7 +9,15 @@ const productSchema = Joi.object({
 
 export const getAllProducts = async (req, res) => {
   try {
-    const product = await Product.find();
+    const { _page = 1, _limit = 10, _sort = "price", _order } = req.query;
+    const options = {
+      page: parseInt(_page),
+      limit: parseInt(_limit),
+      sort: {
+        [_sort]: _order === "desc" ? -1 : 1,
+      },
+    };
+    const product = await Product.paginate({}, options);
     return res.status(200).json(product);
   } catch (error) {
     return res.status(400).json({ message: error.message });
